@@ -7,32 +7,32 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 import { ComponentProps } from "react"
 
-function AlertDialog({
+const AlertDialog=({
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Root>) {
+}: ComponentProps<typeof AlertDialogPrimitive.Root>) =>{
   return <AlertDialogPrimitive.Root data-slot="alert-dialog" {...props} />
 }
 
-function AlertDialogTrigger({
+const AlertDialogTrigger=({
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Trigger>) {
+}: ComponentProps<typeof AlertDialogPrimitive.Trigger>) =>{
   return (
     <AlertDialogPrimitive.Trigger data-slot="alert-dialog-trigger" {...props} />
   )
 }
 
-function AlertDialogPortal({
+const  AlertDialogPortal=({
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Portal>) {
+}: ComponentProps<typeof AlertDialogPrimitive.Portal>) =>{
   return (
     <AlertDialogPrimitive.Portal data-slot="alert-dialog-portal" {...props} />
   )
 }
 
-function AlertDialogOverlay({
+const AlertDialogOverlay=({
   className,
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Overlay>) {
+}: ComponentProps<typeof AlertDialogPrimitive.Overlay>) =>{
   return (
     <AlertDialogPrimitive.Overlay
       data-slot="alert-dialog-overlay"
@@ -45,10 +45,10 @@ function AlertDialogOverlay({
   )
 }
 
-function AlertDialogContent({
+const  AlertDialogContent=({
   className,
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Content>) {
+}: ComponentProps<typeof AlertDialogPrimitive.Content>) =>{
   return (
     <AlertDialogPortal>
       <AlertDialogOverlay />
@@ -64,10 +64,10 @@ function AlertDialogContent({
   )
 }
 
-function AlertDialogHeader({
+const  AlertDialogHeader=({
   className,
   ...props
-}: ComponentProps<"div">) {
+}: ComponentProps<"div">)=>{
   return (
     <div
       data-slot="alert-dialog-header"
@@ -77,10 +77,10 @@ function AlertDialogHeader({
   )
 }
 
-function AlertDialogFooter({
+const AlertDialogFooter=({
   className,
   ...props
-}: ComponentProps<"div">) {
+}: ComponentProps<"div">) =>{
   return (
     <div
       data-slot="alert-dialog-footer"
@@ -93,10 +93,10 @@ function AlertDialogFooter({
   )
 }
 
-function AlertDialogTitle({
+const  AlertDialogTitle=({
   className,
   ...props
-}: ComponentProps<typeof AlertDialogPrimitive.Title>) {
+}: ComponentProps<typeof AlertDialogPrimitive.Title>)=> {
   return (
     <AlertDialogPrimitive.Title
       data-slot="alert-dialog-title"

@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
-import {ClerkProvider} from '@clerk/nextjs'
+
 import { TRPCReactProvider } from "@/trpc/client";
+import { Toaster } from "@/components/ui/sonner";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -26,15 +27,16 @@ const RootLayout = ({
 }>) => {
   return (
     <TRPCReactProvider>
-      <ClerkProvider>
+      
         <html lang="en">
           <body
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
+            <Toaster/>
             {children}
           </body>
         </html>
-      </ClerkProvider>
+      
     </TRPCReactProvider>
   );
 };
