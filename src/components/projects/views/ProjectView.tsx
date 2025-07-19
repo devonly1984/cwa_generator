@@ -1,6 +1,5 @@
 "use client"
 
-
 import {
   ResizableHandle,
   ResizablePanel,
@@ -8,10 +7,13 @@ import {
 } from "@/components/ui/resizable";
 import MessagesContainer from "@/components/projects/shared/MessagesContainer";
 import { Suspense } from "react";
+
+
 interface Props {
     projectId:string;
 }
 const ProjectView = ({projectId}:Props) => {
+
 
  
   return (

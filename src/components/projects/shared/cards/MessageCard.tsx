@@ -1,15 +1,10 @@
-import { Fragment, MessageRole, MessageType } from "@/generated/prisma";
-import UserMessage from "./UserMessage";
-import AssistantMessage from "./AssistantMessage";
+import {  MessageRole } from "@/generated/prisma";
+import UserMessage from "../message/UserMessage";
+import AssistantMessage from "../message/AssistantMessage";
+import { MessageProps } from "@/types";
 
-interface MessageCardProps {
-    content:string;
-    fragment: Fragment |null;
-    createdAt:Date;
-    isActiveFragment:boolean;
-    onFragmentClick:(fragment:Fragment)=>void;
-    type: MessageType;
-    role: MessageRole;
+interface  MessageCardProps extends MessageProps {
+  role: MessageRole;
 }
 const MessageCard = ({
   content,
