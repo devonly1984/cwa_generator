@@ -17,7 +17,7 @@ export const codeAgent = inngest.createFunction(
   },
   async ({ event, step }) => {
     const sandboxId = await step.run("get-sandbox-id", async () => {
-      const sandbox = await Sandbox.create("vibe-test");
+      const sandbox = await Sandbox.create("vibe-test-5");
       return sandbox.sandboxId;
     });
     const summarizer = createAgent<AgentState>({

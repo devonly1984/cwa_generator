@@ -8,3 +8,7 @@ export type MessageProps = {
   onFragmentClick: (fragment: Fragment) => void;
   type: MessageType;
 };
+
+export type ProjectProps = {
+  projectId:string;
+}

@@ -5,6 +5,7 @@ import { ReactNode } from "react";
 
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "next-themes";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -27,16 +28,21 @@ const RootLayout = ({
 }>) => {
   return (
     <TRPCReactProvider>
-      
-        <html lang="en">
-          <body
-            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      <html lang="en" suppressHydrationWarning>
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <ThemeProvider
+            attribute={"class"}
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
           >
-            <Toaster/>
+            <Toaster />
             {children}
-          </body>
-        </html>
-      
+          </ThemeProvider>
+        </body>
+      </html>
     </TRPCReactProvider>
   );
 };

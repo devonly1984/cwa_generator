@@ -13,13 +13,11 @@ import { cn} from '@/lib/utils';
  import { useTRPC } from '@/trpc/client';
  import {Form,FormField} from '@/components/ui/form';
 import { messageSchema, MessageSchema } from '@/lib/schemas/messageSchema';
-interface Props {
-    projectId:string;
-
-}
+import { ProjectProps } from '@/types';
 
 
-const MessageForm = ({ projectId }: Props) => {
+
+const MessageForm = ({ projectId }: ProjectProps) => {
     const [isFocused, setIsFocused] = useState(false);
     const showUsage = false;
     const trpc = useTRPC();
