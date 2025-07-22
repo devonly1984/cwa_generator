@@ -1,6 +1,6 @@
 import {  MessageRole } from "@/generated/prisma";
-import UserMessage from "../message/UserMessage";
-import AssistantMessage from "../message/AssistantMessage";
+import UserMessage from "@/components/projects/message/UserMessage";
+import AssistantMessage from "@/components/projects/message/AssistantMessage";
 import { MessageProps } from "@/types";
 
 interface  MessageCardProps extends MessageProps {

@@ -2,11 +2,11 @@
 
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import MessageCard from "./cards/MessageCard";
-import MessageForm from "./forms/MessageForm";
+import MessageCard from "@/components/projects/cards/MessageCard";
+import MessageForm from "@/components/projects/forms/MessageForm";
 import { useEffect, useRef } from "react";
 import { Fragment } from "@/generated/prisma";
-import MessageLoading from "./loaders/MessageLoading";
+import MessageLoading from "@/components/projects/loaders/MessageLoading";
 import { ProjectProps } from "@/types";
 interface Props extends ProjectProps {
   
@@ -15,6 +15,7 @@ interface Props extends ProjectProps {
 }
 const MessagesContainer = ({ projectId,activeFragment,setActiveFragment }: Props) => {
   const bottomRef = useRef<HTMLDivElement>(null);
+  const lastAssistantMessageIdRef = useRef<string | null>(null);
   const trpc = useTRPC();
   const { data: messages } = useSuspenseQuery(
     trpc.messages.getMany.queryOptions(
@@ -27,14 +28,15 @@ const MessagesContainer = ({ projectId,activeFragment,setActiveFragment }: Props
       }
     )
   );
-  /*useEffect(() => {
-    const lastAssistantMessagewithFragment = messages.findLast(
-      (message) => message.role === "ASSISTANT" && !!message.fragment
-    );
-    if (lastAssistantMessagewithFragment ) {
-      setActiveFragment(lastAssistantMessagewithFragment.fragment);
-    }
-  }, [messages, setActiveFragment]);*/
+useEffect(() => {
+  const lastAssistantMessage = messages.findLast(
+    (message) => message.role === "ASSISTANT"
+  );
+  if (lastAssistantMessage?.fragment &&  lastAssistantMessage.id !== lastAssistantMessageIdRef.current){
+    setActiveFragment(lastAssistantMessage.fragment);
+    lastAssistantMessageIdRef.current = lastAssistantMessage.id;
+  }
+  }, [messages, setActiveFragment]);
 
 
   useEffect(() => {

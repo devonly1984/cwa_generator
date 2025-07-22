@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { ExternalLink,RefreshCcw } from "lucide-react";
 import { Fragment } from "@/generated/prisma"
-import { Button } from "../ui/button";
-import Hint from "../Hint";
+import { Button } from "@/components/ui/button";
+import Hint from "@/components/Hint";
 interface FragmentWebProps {
     data: Fragment
 }

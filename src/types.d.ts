@@ -12,3 +12,8 @@ export type MessageProps = {
 export type ProjectProps = {
   projectId:string;
 }
+export type FileCollection = { [path: string]: string };
+export type TreeItem = string | [string, ...TreeItem[]];
+export interface TreeNode {
+  [key: string]: TreeNode | null;
+}

@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { MessageProps } from "@/types";
 import Image from "next/image";
-import FragmentCard from "../cards/FragmentCard";
+import FragmentCard from "@/components/projects/cards/FragmentCard";
 
 
 const AssistantMessage = ({

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
-
+import { ClerkProvider } from "@clerk/nextjs";
 import { TRPCReactProvider } from "@/trpc/client";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "next-themes";
@@ -27,6 +27,7 @@ const RootLayout = ({
   children: ReactNode;
 }>) => {
   return (
+    <ClerkProvider>
     <TRPCReactProvider>
       <html lang="en" suppressHydrationWarning>
         <body
@@ -44,6 +45,7 @@ const RootLayout = ({
         </body>
       </html>
     </TRPCReactProvider>
+    </ClerkProvider>
   );
 };
 export default RootLayout;

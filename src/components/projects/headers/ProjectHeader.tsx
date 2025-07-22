@@ -1,6 +1,6 @@
 
 import { ProjectProps } from "@/types";
-import ProjectDropdown from "../dropdown/ProjectDropdown";
+import ProjectDropdown from "@/components/projects/dropdown/ProjectDropdown";
 
 const ProjectHeader = ({ projectId }: ProjectProps) => {
  
