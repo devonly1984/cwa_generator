@@ -8,6 +8,7 @@ import {
   SignUpButton,
 } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import UserControl from "../UserControl";
 
 const HomeNavbar = () => {
   return (
@@ -30,7 +31,7 @@ const HomeNavbar = () => {
           </div>
         </SignedOut>
         <SignedIn>
-          <p>TODO:User control</p>
+          <UserControl showName />
         </SignedIn>
       </div>
     </nav>

@@ -1,66 +1,65 @@
+"use client";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import TextareaAutosize from "react-textarea-autosize";
+import { useState } from "react";
+import { toast } from "sonner";
+import { ArrowUp, Loader2 } from "lucide-react";
 
-"use client"
-import {useForm} from 'react-hook-form'
-import {zodResolver} from '@hookform/resolvers/zod';
-import TextareaAutosize from 'react-textarea-autosize'
-import { useState } from 'react';
-import {toast} from 'sonner';
-import {ArrowUp,Loader2} from 'lucide-react'
-
-import {  useMutation,useQueryClient } from '@tanstack/react-query';
-import { cn} from '@/lib/utils';
- import { Button } from '@/components/ui/button';
- import { useTRPC } from '@/trpc/client';
- import {Form,FormField} from '@/components/ui/form';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { useTRPC } from "@/trpc/client";
+import { Form, FormField } from "@/components/ui/form";
 import { useRouter } from "next/navigation";
-import { projectSchema, ProjectSchema } from '@/lib/schemas/projectSchema';
-import { PROJECT_TEMPLATES } from '@/app/(home)/constants';
-
-
-
+import { projectSchema, ProjectSchema } from "@/lib/schemas/projectSchema";
+import { PROJECT_TEMPLATES } from "@/app/(home)/constants";
+import { useClerk } from "@clerk/nextjs";
 
 const ProjectForm = () => {
-    const [isFocused, setIsFocused] = useState(false);
-    const router =useRouter();
-    const trpc = useTRPC();
-    const queryClient = useQueryClient()
-    const createProject = useMutation(
-      trpc.projects.create.mutationOptions({
-        onSuccess: (data) => {
-          queryClient.invalidateQueries(
-            trpc.projects.getMany.queryOptions()
-          );
-          router.push(`/projects/${data.id}`);
-          //TODO: Invalidate usage status
-        },
-        onError: (error) => {
-          //TODO: Redirect to pricing page if specific error
-          toast.error(error.message);
-        },
-      })
-    );
-       const form = useForm<ProjectSchema>({
-         resolver: zodResolver(projectSchema),
-         defaultValues: {
-           value: "",
-         },
-       });
-    const isPending = createProject.isPending;
-    const isButtonDisabled = isPending || !form.formState.isValid;
- 
-    
-    const onSubmit = async (values:ProjectSchema)=>{
-      await createProject.mutateAsync({
-        prompt: values.value,
-      });
-    }
-    const onSelect = (value:string)=>{
-      form.setValue("value", value, {
-        shouldDirty: true,
-        shouldValidate: true,
-        shouldTouch: true,
-      });
-    }
+  const [isFocused, setIsFocused] = useState(false);
+  const router = useRouter();
+  const trpc = useTRPC();
+  const clerk = useClerk();
+  const queryClient = useQueryClient();
+  const createProject = useMutation(
+    trpc.projects.create.mutationOptions({
+      onSuccess: (data) => {
+        queryClient.invalidateQueries(
+          trpc.projects.getMany.queryOptions()
+        );
+        router.push(`/projects/${data.id}`);
+        //TODO: Invalidate usage status
+      },
+      onError: (error) => {
+        toast.error(error.message);
+        if (error?.data?.code === "UNAUTHORIZED") {
+          clerk.openSignIn();
+        }
+      },
+    })
+  );
+  const form = useForm<ProjectSchema>({
+    resolver: zodResolver(projectSchema),
+    defaultValues: {
+      value: "",
+    },
+  });
+  const isPending = createProject.isPending;
+  const isButtonDisabled = isPending || !form.formState.isValid;
+
+  const onSubmit = async (values: ProjectSchema) => {
+    await createProject.mutateAsync({
+      prompt: values.value,
+    });
+  };
+  const onSelect = (value: string) => {
+    form.setValue("value", value, {
+      shouldDirty: true,
+      shouldValidate: true,
+      shouldTouch: true,
+    });
+  };
   return (
     <Form {...form}>
       <section className="space-y-6">
@@ -129,7 +128,6 @@ const ProjectForm = () => {
           ))}
         </div>
       </section>
-      
     </Form>
   );
 };
